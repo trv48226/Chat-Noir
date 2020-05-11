@@ -1,5 +1,5 @@
 package chatNoir;
-
+//Colors
 public class Colors {
 	private int xValue;
 	private int yValue;

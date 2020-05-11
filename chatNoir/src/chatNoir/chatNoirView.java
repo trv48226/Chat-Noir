@@ -35,9 +35,7 @@ public class chatNoirView extends Application implements PropertyChangeListener 
 			for(int i = 0; i < buttonArray.length; i++) {
 				for(int j = 0; j < buttonArray[i].length; j++) {
 					buttonArray[i][j] = new Button();
-					
 					gp.add(buttonArray[i][j], 11 - i + j, j + i);
-					buttonArray[i][j].setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				}
 			}
 			root.setCenter(gp);

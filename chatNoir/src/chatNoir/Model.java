@@ -3,7 +3,7 @@ package chatNoir;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Random;
-
+//Model
 public class Model {
 
 	private Boolean ownerTurn;
