@@ -10,7 +10,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+// Red = #FF0000
+// White = #FFFFFF
+//Grey = #DCDCDC
 public class chatNoirView extends Application implements PropertyChangeListener {
 	private Model model;
 	
@@ -30,15 +32,19 @@ public class chatNoirView extends Application implements PropertyChangeListener 
 			model.addPropertyChangeListener(this);
 			gp = new GridPane();
 			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root, 500, 750, Color.BEIGE);
+			Scene scene = new Scene(root, 450, 700);
 			primaryStage.setTitle(model.getTitle());
 			for(int i = 0; i < buttonArray.length; i++) {
 				for(int j = 0; j < buttonArray[i].length; j++) {
 					buttonArray[i][j] = new Button();
+					buttonArray[i][j].setStyle(model.getBoardColor(i,j));
+					//buttonArray[i][j].setStyle("-fx-border-color: Red");
 					gp.add(buttonArray[i][j], 11 - i + j, j + i);
 				}
 			}
+			
 			root.setCenter(gp);
+			root.setStyle("-fx-background-color: #F5F5DC");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {

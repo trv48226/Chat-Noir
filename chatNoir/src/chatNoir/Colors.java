@@ -1,9 +1,13 @@
 package chatNoir;
+
+import java.beans.PropertyChangeSupport;
+
 //Colors
 public class Colors {
 	private int xValue;
 	private int yValue;
 	private String color;
+	protected PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
 	public Colors(String newColor, int x, int y) {
 		setColor(newColor);
@@ -39,5 +43,6 @@ public class Colors {
 
 	public void setColor(String color) {
 		this.color = color;
+		pcs.firePropertyChange(color, null, null);
 	}
 }

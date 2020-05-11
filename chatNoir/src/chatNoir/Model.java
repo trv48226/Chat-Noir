@@ -10,6 +10,19 @@ public class Model {
 	private Colors[][] board;
 	private Boolean isVisited;
 	private Colors getLastCatMove;
+	
+	public String getBoardColor(int i, int j) {
+		if(board[i][j].getColor() == "white") {
+			return ("-fx-background-color: white");
+		}else if(board[i][j].getColor() == "Grey") {
+			return("-fx-background-color: #A9A9A9");
+		}else if(board[i][j].getColor() == "edge"){
+			return("-fx-background-color: #DCDCDC");
+		}else {
+			return("-fx-background-color: #FF0000");
+		}
+	}
+	
 	/** A helper object to handle observer pattern behavior */
 	protected PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -28,18 +41,21 @@ public class Model {
 		ownerTurn = false;
 	}
 
-	private void setBlockedSquares() {
+	public void setBlockedSquares() {
 		System.out.println();
 		for (int i = 0; i < 11; i++) {
 			Random r = new Random();
 			int xValue = r.nextInt(10 - 0) + 0;
 			int yValue = r.nextInt(10 - 0) + 0;
-			if (board[xValue][yValue].getColor().equals("Red") && board[xValue][yValue].equals("Grey"))
+			if (!board[xValue][yValue].getColor().equals("Red") && !board[xValue][yValue].equals("Grey")) {
 				board[xValue][yValue].setColor("Grey");
+			//}else {
+			//	i--;
+			}
 		}
 	}
 
-	private void setEdge() {
+	public void setEdge() {
 		for (int i = 0; i < board.length; i++) {
 			board[0][i].setColor("edge");
 		}
@@ -78,13 +94,13 @@ public class Model {
 		}
 	}
 
-	private boolean isValidOwnerMove(int x, int y) {
+	public boolean isValidOwnerMove(int x, int y) {
 		if (board[x][y].getColor().equals("Red") || board[x][y].getColor().equals("Grey"))
 			return false;
 		return true;
 	}
 
-	private boolean isValidCatMove(int x, int y) {
+	public boolean isValidCatMove(int x, int y) {
 		int catX = getLastCatMove.getxValue();
 		int catY = getLastCatMove.getyValue();
 		if ((catX == x && catY == y - 1) || (catX == x - 1 && catY == y) || (catX == x + 1 && catY == y - 1)
