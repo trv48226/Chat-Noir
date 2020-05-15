@@ -5,16 +5,15 @@ import java.beans.PropertyChangeListener;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-// Red = #FF0000
-// White = #FFFFFF
-//Grey = #DCDCDC
+
 public class chatNoirView extends Application implements PropertyChangeListener {
 	private Model model;
 
@@ -40,29 +39,12 @@ public class chatNoirView extends Application implements PropertyChangeListener 
 			Scene scene = new Scene(root, 475, 750);
 			primaryStage.setTitle(model.getTitle());
 			Reset = new Button("Reset");
-			feedBack = new Label("Test");
-			feedBack.setText(model.getFeedback());
+			Reset.setFont(new Font("Times New Roman", 18));
+			feedBack = new Label("");
 
 			Reset.setOnAction(e -> model.startNewGame());
-			
-			//Don't want
-			for (int i = 0; i < buttonArray.length; i++) {
-				for (int j = 0; j < buttonArray[i].length; j++) {
-					buttonArray[i][j] = new Button();
-					buttonArray[i][j].setStyle("-fx-border-color: Red;" + model.getBoardColor(i, j));
-					gpGame.add(buttonArray[i][j], 11 - i + j, j + i);
-				}
-			}
-			
-			//Don't want 
-			for (int i = 0; i < buttonArray.length; i++) {
-				for (int j = 0; j < buttonArray[i].length; j++) {
-					int row = i;
-					int col = j;
-					buttonArray[row][col].setOnAction(e -> model.move(row,col));
-				}
-			}
 
+			model.startNewGame();
 			root.setBottom(feedBack);
 			root.setTop(Reset);
 			root.setCenter(gpGame);
@@ -77,23 +59,31 @@ public class chatNoirView extends Application implements PropertyChangeListener 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("New Game")) {
+			Label blankLabel = new Label("");
+			blankLabel.setPrefSize(20, 20);
+			gpGame.add(blankLabel, 1, 9);
 			for (int i = 0; i < buttonArray.length; i++) {
 				for (int j = 0; j < buttonArray[i].length; j++) {
 					buttonArray[i][j] = new Button();
+					buttonArray[i][j].setPrefSize(40, 20);
 					buttonArray[i][j].setStyle("-fx-border-color: Red;" + model.getBoardColor(i, j));
-					gpGame.add(buttonArray[i][j], 11 - i + j, j + i);
-					
-					//Don't want
+					gpGame.add(buttonArray[i][j], 11 - i + j, j + i, 2, 1);
 					int row = i;
 					int col = j;
-					buttonArray[row][col].setOnAction(e -> model.move(row,col));
+					buttonArray[row][col].setOnAction(e -> model.move(row, col));
 				}
 			}
-		}
-		if(evt.getPropertyName().equals("invalid")) {
 			feedBack.setText(model.getFeedback());
+			feedBack.setFont(new Font("Times New Roman", 20));
 		}
-		if(evt.getPropertyName().equals("valid")) {
+		if (evt.getPropertyName().equals("invalid")) {
+			Alert info = new Alert(Alert.AlertType.ERROR);
+			info.setTitle("Invalid Move");
+			info.setContentText("That is an invalid move");
+			info.showAndWait();
+			return;
+		}
+		if (evt.getPropertyName().equals("valid")) {
 			for (int i = 0; i < buttonArray.length; i++) {
 				for (int j = 0; j < buttonArray[i].length; j++) {
 					buttonArray[i][j].setStyle("-fx-border-color: Red;" + model.getBoardColor(i, j));
@@ -103,5 +93,3 @@ public class chatNoirView extends Application implements PropertyChangeListener 
 		}
 	}
 }
-
-//model.getBoardColor(model.getLastCatMove().getxValue()
