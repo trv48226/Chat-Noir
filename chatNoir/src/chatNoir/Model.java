@@ -110,6 +110,7 @@ public class Model {
 					board[lastCatMove.getxValue()][lastCatMove.getyValue()].setColor("White");
 					if (board[x][y].getColor().equals("Edge")) {
 						lastCatMove.setColor("Edge");
+						gameWon = true;
 					} else {
 						lastCatMove.setxValue(x);
 						lastCatMove.setyValue(y);
@@ -171,7 +172,7 @@ public class Model {
 	 * edge. Updates isVisited to make sure it doesn't do an infinite loop.
 	 * 
 	 * @param x the x value on the board containing the cat
-	 * @param y the y value on the board contaning the cat
+	 * @param y the y value on the board containing the cat
 	 * @return true if a path to the edge was found. Return false otherwise.
 	 */
 	private boolean pathToEdge(int x, int y) {
@@ -196,11 +197,10 @@ public class Model {
 	 * @return Whose turn it is or declare who won
 	 */
 	public String getFeedback() {
-		if (pathToEdge(lastCatMove.getxValue(), lastCatMove.getyValue()) == true) {
-			if (lastCatMove.getColor().equals("Edge")) {
-				gameWon = true;
+		if(gameWon == true)
 				return "The Cat wins the game";
-			} else if (ownerTurn == false)
+		else if (pathToEdge(lastCatMove.getxValue(), lastCatMove.getyValue()) == true) {
+			if (ownerTurn == false)
 				return "It is the Cat's turn";
 			else
 				return "It is the Owner's turn";
