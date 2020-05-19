@@ -35,7 +35,7 @@ public class chatNoirView extends Application implements PropertyChangeListener 
 	private Label feedBack;
 
 	/**
-	 * Main method to launch the GUI
+	 * Main method to launch the visual GUI
 	 * 
 	 * @param args
 	 */

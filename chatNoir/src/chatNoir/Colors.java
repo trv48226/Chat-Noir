@@ -2,7 +2,7 @@ package chatNoir;
 
 /**
  * Colors Class that creates a color object with an x value, y value, and a
- * color
+ * color.
  * 
  * @author Lukas and Trevor
  * @Version Spring2020

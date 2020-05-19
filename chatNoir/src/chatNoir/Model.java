@@ -11,7 +11,7 @@ import java.util.Random;
  * @Version Spring2020
  */
 public class Model {
-	/** True if its the owner's turn. Otherwise it's the cats turn */
+	/** True if its the owner's turn. Otherwise it is the cats turn */
 	private Boolean ownerTurn;
 	/** Double array of colors to color the board */
 	private Colors[][] board;
